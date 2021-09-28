@@ -25,3 +25,6 @@ public class Application {
 ```
 2021-09-09 16:27:45.475  INFO 37000 --- [nio-8080-exec-2] c.g.d.t.s.ArgsPrinterAutoConfiguration   : 方法: com.example.disco.controller.UserController.login, 参数: [{"name":"w.dehai","password":"123456"}]
 ```
+
+4. 实现原理
+利用Spring AOP能力，拦截配置的包名，打印这些包名下方法执行时候的参数
