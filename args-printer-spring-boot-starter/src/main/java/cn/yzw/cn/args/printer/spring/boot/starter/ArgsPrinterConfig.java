@@ -13,7 +13,6 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.StandardAnnotationMetadata;
 import org.springframework.lang.NonNull;
 
-import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +27,7 @@ import static com.alibaba.fastjson.JSON.toJSONString;
 public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar {
 
     @Override
-    public void registerBeanDefinitions(@Nonnull AnnotationMetadata importingClassMetadata, @NonNull BeanDefinitionRegistry registry) {
+    public void registerBeanDefinitions(@NonNull AnnotationMetadata importingClassMetadata, @NonNull BeanDefinitionRegistry registry) {
         ImportBeanDefinitionRegistrar.super.registerBeanDefinitions(importingClassMetadata, registry);
         StandardAnnotationMetadata icm = (StandardAnnotationMetadata) importingClassMetadata;
         Class<?> ic = icm.getIntrospectedClass();
