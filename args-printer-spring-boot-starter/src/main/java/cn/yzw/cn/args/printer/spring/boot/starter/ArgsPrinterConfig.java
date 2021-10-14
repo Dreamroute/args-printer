@@ -3,15 +3,11 @@ package cn.yzw.cn.args.printer.spring.boot.starter;
 import cn.hutool.core.annotation.AnnotationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.StandardAnnotationMetadata;
@@ -29,7 +25,6 @@ import static com.alibaba.fastjson.JSON.toJSONString;
  * @author w.dehai.2021/9/9.14:58
  */
 @Slf4j
-@Configuration
 public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar {
 
     @Override
