@@ -61,7 +61,6 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar {
                 } catch (Exception e) {
                     log.error("此处参数序列化失败了，已经经过特殊处理，不会影响业务，开发人员可以尝试排查一下此处的错误原因，方法名: {}, 异常: {}", methodName, e);
                 }
-
             }
             return invocation.proceed();
         };
