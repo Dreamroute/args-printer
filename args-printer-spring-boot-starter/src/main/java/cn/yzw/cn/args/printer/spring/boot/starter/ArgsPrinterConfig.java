@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.StandardAnnotationMetadata;
 import org.springframework.lang.NonNull;
+import org.springframework.util.StopWatch;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -55,7 +56,13 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar {
                     log.error("此处参数序列化失败了，已经经过特殊处理，不会影响业务，开发人员可以尝试排查一下此处的错误原因，方法名: {}, 异常: {}", methodName, e);
                 }
             }
-            return invocation.proceed();
+            StopWatch watch = new StopWatch();
+            watch.start();
+            Object result = invocation.proceed();
+            watch.stop();
+            log.info("方法: {}, 执行耗时: {} 毫秒", methodName, toJSONString(watch.getTotalTimeMillis()));
+
+            return result;
         };
         return new DefaultPointcutAdvisor(pointcut, interceptor);
     }
