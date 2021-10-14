@@ -29,7 +29,6 @@ import static com.alibaba.fastjson.JSON.toJSONString;
  * @author w.dehai.2021/9/9.14:58
  */
 @Slf4j
-//@Aspect
 @Configuration
 public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar {
 
