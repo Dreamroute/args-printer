@@ -97,17 +97,14 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
         TimedCache timedCache = factory.getBean(TimedCache.class);
         ThreadLocal<Map<String, Object>> tl = (ThreadLocal<Map<String, Object>>) timedCache.get("cookieUser");
         Map<String, Object> userMap = tl.get();
-        if (Objects.isNull(userMap)) {
-            return;
-        }
-        try {
-            TimeUnit.SECONDS.sleep(30);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        log.info("===========userMap: {}", JSONUtil.toJsonStr(userMap));
         new Thread(() -> {
             try {
+                try {
+                    TimeUnit.SECONDS.sleep(30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                log.info("===========userMap: {}", JSONUtil.toJsonStr(userMap));
                 Behavior behavior = invocation.getMethod().getAnnotation(Behavior.class);
                 if (Objects.isNull(behavior)) {
                     return;
@@ -119,7 +116,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
                     Map<String, Object> paramMap = new HashMap<>();
                     paramMap.put("interfaceName", methodName);
                     paramMap.put("interfaceParam", param);
-                    paramMap.put("interfaceDesc", behavior.desc());
+                    paramMap.put("interfaceDesc", behavior.value());
                     paramMap.put("callDate", new Date());
                     paramMap.put("organizationSysNo", userMap.get("organizationSysNo"));
                     paramMap.put("organizationCode", userMap.get("organizationCode"));
