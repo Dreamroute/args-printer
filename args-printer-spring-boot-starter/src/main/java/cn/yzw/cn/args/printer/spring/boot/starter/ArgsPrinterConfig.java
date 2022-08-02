@@ -104,6 +104,10 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
             return;
         }
         Map<String, Object> userMap = tl.get();
+        Map<String, Object> paramMap = buildParam(userMap);
+        String url = userMap.get("url").toString();
+        userMap = null;
+        tl.remove();
         new Thread(() -> {
             try {
                 ApiOperation apiOperation = invocation.getMethod().getAnnotation(ApiOperation.class);
@@ -113,28 +117,32 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
                 String methodName = invocation.getMethod().getDeclaringClass().getName() + "." + invocation.getMethod().getName();
                 List<Object> param = Arrays.stream(invocation.getArguments()).filter(arg -> arg instanceof Serializable).collect(Collectors.toList());
                 RestTemplate restTemplate = new RestTemplate();
-                Map<String, Object> paramMap = new HashMap<>();
                 paramMap.put("interfaceName", methodName);
                 paramMap.put("interfaceParam", JSONUtil.toJsonStr(param));
                 paramMap.put("interfaceDesc", apiOperation.value());
-                paramMap.put("callDate", new Date());
-                paramMap.put("organizationSysNo", userMap.get("organizationSysNo"));
-                paramMap.put("organizationCode", userMap.get("organizationCode"));
-                paramMap.put("organizationName", userMap.get("organizationName"));
-                paramMap.put("inUserSysNo", userMap.get("userSysNo"));
-                paramMap.put("inUserName", userMap.get("userDisplayName"));
-                paramMap.put("source", userMap.get("source"));
 
                 HttpHeaders httpHeaders = new HttpHeaders();
                 MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
                 httpHeaders.setContentType(type);
                 HttpEntity<String> httpEntity = new HttpEntity<>(JSONUtil.toJsonStr(paramMap), httpHeaders);
                 log.info("参数: {}", JSONUtil.toJsonStr(paramMap));
-                restTemplate.postForEntity(userMap.get("url").toString(), httpEntity, Object.class);
-                log.info("记录用户行为的请求已发送，desc: {}, user:{}", apiOperation.value(), JSONUtil.toJsonStr(userMap));
+                restTemplate.postForEntity(url, httpEntity, Object.class);
+                log.info("记录用户行为的请求已发送，desc: {}, user:{}", apiOperation.value(), JSONUtil.toJsonStr(paramMap));
             } catch (Exception e){
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    private Map<String, Object> buildParam(Map<String, Object> userMap){
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("callDate", new Date());
+        paramMap.put("organizationSysNo", userMap.get("organizationSysNo"));
+        paramMap.put("organizationCode", userMap.get("organizationCode"));
+        paramMap.put("organizationName", userMap.get("organizationName"));
+        paramMap.put("inUserSysNo", userMap.get("userSysNo"));
+        paramMap.put("inUserName", userMap.get("userDisplayName"));
+        paramMap.put("source", userMap.get("source"));
+        return paramMap;
     }
 }
