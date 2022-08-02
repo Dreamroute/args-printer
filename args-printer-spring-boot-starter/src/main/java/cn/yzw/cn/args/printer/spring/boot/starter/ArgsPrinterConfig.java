@@ -115,7 +115,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
                     return;
                 }
                 String methodName = invocation.getMethod().getDeclaringClass().getName() + "." + invocation.getMethod().getName();
-                if (methodName.indexOf("createBehavior") > 0) {
+                if (methodName.contains("createBehavior") || !methodName.contains("Controller")) {
                     return;
                 }
                 List<Object> param = Arrays.stream(invocation.getArguments()).filter(arg -> arg instanceof Serializable).collect(Collectors.toList());
