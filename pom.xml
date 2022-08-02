@@ -35,6 +35,7 @@
         <!-- 第三方工具 -->
         <guava.version>31.0.1-jre</guava.version>
         <hutool-all.version>5.7.13</hutool-all.version>
+        <swagger.version>1.5.20</swagger.version>
 
     </properties>
 
@@ -58,6 +59,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <dependency>

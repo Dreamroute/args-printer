@@ -3,6 +3,7 @@ package cn.yzw.cn.args.printer.spring.boot.starter;
 import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.json.JSONUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -105,34 +106,32 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
         Map<String, Object> userMap = tl.get();
         new Thread(() -> {
             try {
-                Behavior behavior = invocation.getMethod().getAnnotation(Behavior.class);
-                if (Objects.isNull(behavior)) {
+                ApiOperation apiOperation = invocation.getMethod().getAnnotation(ApiOperation.class);
+                if (Objects.isNull(apiOperation)) {
                     return;
                 }
                 String methodName = invocation.getMethod().getDeclaringClass().getName() + "." + invocation.getMethod().getName();
                 List<Object> param = Arrays.stream(invocation.getArguments()).filter(arg -> arg instanceof Serializable).collect(Collectors.toList());
-                if (Objects.nonNull(behavior)) {
-                    RestTemplate restTemplate = new RestTemplate();
-                    Map<String, Object> paramMap = new HashMap<>();
-                    paramMap.put("interfaceName", methodName);
-                    paramMap.put("interfaceParam", JSONUtil.toJsonStr(param));
-                    paramMap.put("interfaceDesc", behavior.value());
-                    paramMap.put("callDate", new Date());
-                    paramMap.put("organizationSysNo", userMap.get("organizationSysNo"));
-                    paramMap.put("organizationCode", userMap.get("organizationCode"));
-                    paramMap.put("organizationName", userMap.get("organizationName"));
-                    paramMap.put("inUserSysNo", userMap.get("userSysNo"));
-                    paramMap.put("inUserName", userMap.get("userDisplayName"));
-                    paramMap.put("source", userMap.get("source"));
+                RestTemplate restTemplate = new RestTemplate();
+                Map<String, Object> paramMap = new HashMap<>();
+                paramMap.put("interfaceName", methodName);
+                paramMap.put("interfaceParam", JSONUtil.toJsonStr(param));
+                paramMap.put("interfaceDesc", apiOperation.value());
+                paramMap.put("callDate", new Date());
+                paramMap.put("organizationSysNo", userMap.get("organizationSysNo"));
+                paramMap.put("organizationCode", userMap.get("organizationCode"));
+                paramMap.put("organizationName", userMap.get("organizationName"));
+                paramMap.put("inUserSysNo", userMap.get("userSysNo"));
+                paramMap.put("inUserName", userMap.get("userDisplayName"));
+                paramMap.put("source", userMap.get("source"));
 
-                    HttpHeaders httpHeaders = new HttpHeaders();
-                    MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
-                    httpHeaders.setContentType(type);
-                    HttpEntity<String> httpEntity = new HttpEntity<>(JSONUtil.toJsonStr(paramMap), httpHeaders);
-                    log.info("参数: {}", JSONUtil.toJsonStr(paramMap));
-                    restTemplate.postForEntity(userMap.get("url").toString(), httpEntity, Object.class);
-                    log.info("记录用户行为的请求已发送，desc: {}, user:{}", behavior.value(), JSONUtil.toJsonStr(userMap));
-                }
+                HttpHeaders httpHeaders = new HttpHeaders();
+                MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+                httpHeaders.setContentType(type);
+                HttpEntity<String> httpEntity = new HttpEntity<>(JSONUtil.toJsonStr(paramMap), httpHeaders);
+                log.info("参数: {}", JSONUtil.toJsonStr(paramMap));
+                restTemplate.postForEntity(userMap.get("url").toString(), httpEntity, Object.class);
+                log.info("记录用户行为的请求已发送，desc: {}, user:{}", apiOperation.value(), JSONUtil.toJsonStr(userMap));
             } catch (Exception e){
                 e.printStackTrace();
             }

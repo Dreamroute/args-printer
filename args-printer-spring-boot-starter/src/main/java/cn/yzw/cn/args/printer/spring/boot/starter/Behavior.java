@@ -13,11 +13,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(METHOD)
 @Retention(RUNTIME)
 public @interface Behavior {
-
-    /**
-     * 以json形式传递user
-     * @author ：chengying
-     */
-    String value() default "";
-
 }
