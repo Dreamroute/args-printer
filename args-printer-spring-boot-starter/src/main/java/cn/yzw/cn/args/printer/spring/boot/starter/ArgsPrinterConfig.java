@@ -81,7 +81,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
             watch.start();
             Object result = invocation.proceed();
             watch.stop();
-            log.info("\r\n" + PREFIX + "方法: {}, 执行耗时: {} 毫秒", methodName, JSONUtil.toJsonStr(watch.getTotalTimeMillis()));
+            log.info("\r\n" + PREFIX + "方法: {}, 执行耗时: {} 毫秒", methodName, watch.getTotalTimeMillis());
 
             return result;
         };
