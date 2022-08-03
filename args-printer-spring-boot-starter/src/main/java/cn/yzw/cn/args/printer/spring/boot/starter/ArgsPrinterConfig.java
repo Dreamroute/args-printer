@@ -24,6 +24,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringValueResolver;
 import org.springframework.web.client.RestTemplate;
@@ -104,6 +105,9 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
             return;
         }
         Map<String, Object> userMap = tl.get();
+        if (CollectionUtils.isEmpty(userMap)) {
+            return;
+        }
         Map<String, Object> paramMap = buildParam(userMap);
         String url = userMap.get("url").toString();
         userMap = null;
