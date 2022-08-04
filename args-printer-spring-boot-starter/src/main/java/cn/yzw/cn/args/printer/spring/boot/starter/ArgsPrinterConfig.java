@@ -78,7 +78,9 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
                     log.error("此处参数序列化失败了，已经经过特殊处理，不会影响业务，开发人员可以尝试排查一下此处的错误原因，方法名: {}, 异常: {}", methodName, e);
                 }
             }
-            recordBehavior(invocation, factory);
+            if (!methodName.contains("createBehavior") && methodName.contains("Controller")) {
+                recordBehavior(invocation, factory);
+            }
             StopWatch watch = new StopWatch();
             watch.start();
             Object result = invocation.proceed();
@@ -121,9 +123,6 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
                     return;
                 }
                 String methodName = invocation.getMethod().getDeclaringClass().getName() + "." + invocation.getMethod().getName();
-                if (methodName.contains("createBehavior") || !methodName.contains("Controller")) {
-                    return;
-                }
                 List<Object> param = Arrays.stream(invocation.getArguments()).filter(arg -> arg instanceof Serializable).collect(Collectors.toList());
                 RestTemplate restTemplate = new RestTemplate();
                 paramMap.put("interfaceName", methodName);
