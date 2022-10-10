@@ -1,4 +1,4 @@
-package cn.yzw.args.printer.smaple.domain;
+package com.github.dreamroute.args.printer.smaple.domain;
 
 import lombok.Data;
 

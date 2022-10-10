@@ -5,7 +5,7 @@
 1. 引入依赖：
 ```xml
 <dependency>
-    <groupId>cn.yzw</groupId>
+    <groupId>com.github.dreamroute</groupId>
     <artifactId>args-printer-spring-boot-starter</artifactId>
     <version>最新版本</version>
 </dependency>
@@ -13,7 +13,7 @@
 2. 如果需要打印比如`controller, service, mapper`等的调用参数，可以配置`@EnableArgsPrinter`在启动类上，并且将需要打印参数的包名设置在`value`上即可
 ```java
 @SpringBootApplication
-@EnableArgsPrinter({"cn.yzw.args.printer.smaple.controller"})
+@EnableArgsPrinter({"com.github.dreamroute.args.printer.smaple.controller"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

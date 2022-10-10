@@ -1,4 +1,4 @@
-package cn.yzw.cn.args.printer.spring.boot.starter;
+package com.github.dreamroute.args.printer.spring.boot.starter;
 
 import org.springframework.context.annotation.Import;
 

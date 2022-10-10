@@ -1,6 +1,6 @@
-package cn.yzw.args.printer.smaple.controller;
+package com.github.dreamroute.args.printer.smaple.controller;
 
-import cn.yzw.args.printer.smaple.domain.User;
+import com.github.dreamroute.args.printer.smaple.domain.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

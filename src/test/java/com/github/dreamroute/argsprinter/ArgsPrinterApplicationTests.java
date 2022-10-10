@@ -1,4 +1,4 @@
-package cn.yzw.argsprinter;
+package com.github.dreamroute.argsprinter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

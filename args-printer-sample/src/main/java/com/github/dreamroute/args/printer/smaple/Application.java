@@ -1,6 +1,6 @@
-package cn.yzw.args.printer.smaple;
+package com.github.dreamroute.args.printer.smaple;
 
-import cn.yzw.cn.args.printer.spring.boot.starter.EnableArgsPrinter;
+import com.github.dreamroute.args.printer.spring.boot.starter.EnableArgsPrinter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author w.dehi.2021-09-28
  */
 @SpringBootApplication
-@EnableArgsPrinter({"cn.yzw.args.printer.smaple.controller"})
+@EnableArgsPrinter({"com.github.dreamroute.args.printer.smaple.controller"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
