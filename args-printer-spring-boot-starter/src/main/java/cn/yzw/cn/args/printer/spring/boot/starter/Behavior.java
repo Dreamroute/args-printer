@@ -18,6 +18,6 @@ public @interface Behavior {
      * 以json形式传递user
      * @author ：chengying
      */
-    String value() default "";
+    String desc() default "";
 
 }
