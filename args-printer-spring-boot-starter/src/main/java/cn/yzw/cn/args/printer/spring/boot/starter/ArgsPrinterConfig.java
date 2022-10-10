@@ -73,7 +73,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
             if (args != null && args.length > 0) {
                 List<Object> collect = Arrays.stream(args).filter(arg -> arg instanceof Serializable).collect(Collectors.toList());
                 try {
-                    log.info("方法: {}, 参数: {}", methodName, JSONUtil.toJsonStr(collect));
+                    log.info("\r\n" + PREFIX + "方法: {}, 参数: {}", methodName, JSONUtil.toJsonStr(collect));
                 } catch (Exception e) {
                     log.error("此处参数序列化失败了，已经经过特殊处理，不会影响业务，开发人员可以尝试排查一下此处的错误原因，方法名: {}, 异常: {}", methodName, e);
                 }
@@ -85,7 +85,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
             watch.start();
             Object result = invocation.proceed();
             watch.stop();
-            log.info("方法: {}, 执行耗时: {} 毫秒", methodName, watch.getTotalTimeMillis());
+            log.info("\r\n" + PREFIX + "方法: {}, 执行耗时: {} 毫秒", methodName, watch.getTotalTimeMillis());
 
             return result;
         };
