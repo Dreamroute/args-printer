@@ -94,13 +94,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
      * @author ：chengying
      */
     private void recordBehavior(MethodInvocation invocation, DefaultListableBeanFactory factory){
-        TimedCache timedCache;
-        try {
-            timedCache = factory.getBean(TimedCache.class);
-        }catch (Exception e){
-            return;
-        }
-
+        TimedCache timedCache = factory.getBean(TimedCache.class);
         ThreadLocal<Map<String, Object>> tl = (ThreadLocal<Map<String, Object>>) timedCache.get("cookieUser");
         Map<String, Object> userMap = tl.get();
         new Thread(() -> {
