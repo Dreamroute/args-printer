@@ -38,7 +38,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -107,7 +106,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
             return;
         }
         Map<String, Object> userMap = tl.get();
-        if (CollectionUtils.isEmpty(userMap) || StringUtils.isEmpty(Optional.ofNullable(userMap.get("organizationCode")).orElseGet(String::new))) {
+        if (CollectionUtils.isEmpty(userMap) || StringUtils.isEmpty(userMap.get("organizationCode"))) {
             return;
         }
         Map<String, Object> paramMap = buildParam(userMap);
