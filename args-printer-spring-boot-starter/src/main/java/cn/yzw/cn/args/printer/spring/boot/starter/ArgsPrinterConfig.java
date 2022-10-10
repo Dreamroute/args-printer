@@ -35,7 +35,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
+import static com.alibaba.fastjson.JSON.toJSONString;
 
 /**
  * @author w.dehai.2021/9/9.14:58
@@ -69,7 +72,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
             if (args != null && args.length > 0) {
                 List<Object> collect = Arrays.stream(args).filter(arg -> arg instanceof Serializable).collect(Collectors.toList());
                 try {
-                    log.info("\r\n" + PREFIX + "方法: {}, 参数: {}", methodName, JSONUtil.toJsonStr(collect));
+                    log.info("\r\n" + PREFIX + "方法: {}, 参数: {}", methodName, toJSONString(collect));
                 } catch (Exception e) {
                     log.error("此处参数序列化失败了，已经经过特殊处理，不会影响业务，开发人员可以尝试排查一下此处的错误原因，方法名: {}, 异常: {}", methodName, e);
                 }
@@ -79,7 +82,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
             watch.start();
             Object result = invocation.proceed();
             watch.stop();
-            log.info("\r\n" + PREFIX + "方法: {}, 执行耗时: {} 毫秒", methodName, JSONUtil.toJsonStr(watch.getTotalTimeMillis()));
+            log.info("\r\n" + PREFIX + "方法: {}, 执行耗时: {} 毫秒", methodName, toJSONString(watch.getTotalTimeMillis()));
 
             return result;
         };
@@ -115,7 +118,7 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
                     RestTemplate restTemplate = new RestTemplate();
                     Map<String, Object> paramMap = new HashMap<>();
                     paramMap.put("interfaceName", methodName);
-                    paramMap.put("interfaceParam", JSONUtil.toJsonStr(param));
+                    paramMap.put("interfaceParam", param);
                     paramMap.put("interfaceDesc", behavior.value());
                     paramMap.put("callDate", new Date());
                     paramMap.put("organizationSysNo", userMap.get("organizationSysNo"));
@@ -129,7 +132,6 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
                     MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
                     httpHeaders.setContentType(type);
                     HttpEntity<String> httpEntity = new HttpEntity<>(JSONUtil.toJsonStr(paramMap), httpHeaders);
-                    log.info("参数: {}", JSONUtil.toJsonStr(paramMap));
                     restTemplate.postForEntity(userMap.get("url").toString(), httpEntity, Object.class);
                     log.info("记录用户行为的请求已发送，desc: {}, user:{}", behavior.value(), JSONUtil.toJsonStr(userMap));
                 }
