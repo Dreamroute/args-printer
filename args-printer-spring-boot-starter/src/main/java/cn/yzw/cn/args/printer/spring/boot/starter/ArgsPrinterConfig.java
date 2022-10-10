@@ -99,6 +99,12 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
         Map<String, Object> userMap = tl.get();
         new Thread(() -> {
             try {
+                try {
+                    TimeUnit.SECONDS.sleep(30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                log.info("===========userMap: {}", JSONUtil.toJsonStr(userMap));
                 Behavior behavior = invocation.getMethod().getAnnotation(Behavior.class);
                 if (Objects.isNull(behavior)) {
                     return;
@@ -124,7 +130,6 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
                     httpHeaders.setContentType(type);
                     HttpEntity<String> httpEntity = new HttpEntity<>(JSONUtil.toJsonStr(paramMap), httpHeaders);
                     restTemplate.postForEntity(userMap.get("url").toString(), httpEntity, Object.class);
-                    log.info("记录用户行为的请求已发送，desc: {}, user:{}", behavior.value(), JSONUtil.toJsonStr(userMap));
                 }
             } catch (Exception e){
                 e.printStackTrace();
