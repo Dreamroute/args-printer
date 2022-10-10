@@ -102,9 +102,6 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar{
         }
 
         ThreadLocal<Map<String, Object>> tl = (ThreadLocal<Map<String, Object>>) timedCache.get("cookieUser");
-        if (Objects.isNull(tl)) {
-            return;
-        }
         Map<String, Object> userMap = tl.get();
         new Thread(() -> {
             try {
