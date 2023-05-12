@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>args-printer-spring-boot-starter</artifactId>
-    <name>${parent.artifactId}</name>
+    <name>${project.parent.artifactId}</name>
 
     <profiles>
         <profile>
