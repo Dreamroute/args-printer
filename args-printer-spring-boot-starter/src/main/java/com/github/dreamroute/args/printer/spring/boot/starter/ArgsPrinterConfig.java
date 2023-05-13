@@ -27,7 +27,7 @@ import static com.alibaba.fastjson.JSON.toJSONString;
 @Slf4j
 public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar {
 
-    private final static String PREFIX = "======ArgsPrinter=======>";
+    private static final String PREFIX = "======ArgsPrinter=======>";
 
     @Override
     public void registerBeanDefinitions(@NonNull AnnotationMetadata importingClassMetadata, @NonNull BeanDefinitionRegistry registry) {
@@ -51,11 +51,11 @@ public class ArgsPrinterConfig implements ImportBeanDefinitionRegistrar {
             String methodName = invocation.getMethod().getDeclaringClass().getName() + "." + invocation.getMethod().getName();
             Object[] args = invocation.getArguments();
             if (args != null && args.length > 0) {
-                List<Object> collect = Arrays.stream(args).filter(arg -> arg instanceof Serializable).collect(Collectors.toList());
+                List<Object> collect = Arrays.stream(args).filter(Serializable.class::isInstance).collect(Collectors.toList());
                 try {
                     log.info("\r\n" + PREFIX + "方法: {}, 参数: {}", methodName, toJSONString(collect));
                 } catch (Exception e) {
-                    log.error("此处参数序列化失败了，已经经过特殊处理，不会影响业务，开发人员可以尝试排查一下此处的错误原因，方法名: {}, 异常: {}", methodName, e);
+                    log.error("此处参数序列化失败了，已经经过特殊处理，不会影响业务，开发人员可以尝试排查一下此处的错误原因，方法名: {}, 异常: {}", methodName, e.getMessage());
                 }
             }
             StopWatch watch = new StopWatch();
