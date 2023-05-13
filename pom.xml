@@ -38,6 +38,7 @@
         <guava.version>31.0.1-jre</guava.version>
         <fastjson.version>1.2.78</fastjson.version>
         <hutool-all.version>5.7.13</hutool-all.version>
+        <common-util.version>1.2.8</common-util.version>
 
         <!-- plugin -->
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
@@ -102,6 +103,12 @@
                 <version>${hutool-all.version}</version>
             </dependency>
             <!-- 基础依赖end -->
+
+            <dependency>
+                <groupId>com.github.dreamroute</groupId>
+                <artifactId>common-util</artifactId>
+                <version>${common-util.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
