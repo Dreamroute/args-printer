@@ -17,7 +17,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface EnableArgsPrinter {
 
     /**
-     * 需要打印参数的包，一般是controller、service和dao层的包
+     * 扫描需要打印参数的包，一般是controller、service和dao层的包，<br>
+     * 默认是把当前路径和子路径下所有Java文件都扫描到
+     *
+     * @return 返回需要打印参数的包路径集合
      */
     String[] value();
 }
