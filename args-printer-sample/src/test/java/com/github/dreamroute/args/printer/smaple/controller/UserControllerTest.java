@@ -6,7 +6,11 @@ import com.github.dreamroute.args.printer.spring.boot.starter.ArgsPrinterConfig;
 import com.github.dreamroute.common.util.test.Appender;
 import com.github.dreamroute.common.util.test.MvcTest;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+import javax.annotation.Resource;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -14,7 +18,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class UserControllerTest extends MvcTest {
+
+    @Resource
+    private MockMvc mockMvc;
 
     @Test
     void selectByIdTest() throws Exception {

@@ -18,9 +18,16 @@ public @interface EnableArgsPrinter {
 
     /**
      * 扫描需要打印参数的包，一般是controller、service和dao层的包，<br>
-     * 默认是把当前路径和子路径下所有Java文件都扫描到
+     * 默认是把当前路径和子路径下所有Java文件都扫描到，如果有部分包不需要打印，俺么使用exclude参数过滤掉
      *
      * @return 返回需要打印参数的包路径集合
      */
     String[] value();
+
+    /**
+     * 过滤掉不需要打印参数的包
+     *
+     * @return 返回不需要打印参数的包
+     */
+    String[] exclude() default {};
 }

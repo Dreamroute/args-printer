@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author w.dehi.2021-09-28
  */
 @SpringBootApplication
-@EnableArgsPrinter({"com.github.dreamroute.args.printer.smaple.controller"})
+@EnableArgsPrinter(value = {"com.github.dreamroute.args.printer.smaple.controller"}, exclude = {"com.github.dreamroute.args.printer.smaple.controller.b"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

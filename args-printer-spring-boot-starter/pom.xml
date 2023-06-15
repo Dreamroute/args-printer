@@ -130,7 +130,7 @@
         <plugins>
 
             <!-- lombok拷贝文件 -->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok-maven-plugin</artifactId>
                 <version>${lombok-maven-plugin.version}</version>
@@ -149,10 +149,10 @@
                     <addOutputDirectory>false</addOutputDirectory>
                     <encoding>UTF-8</encoding>
                 </configuration>
-            </plugin>
+            </plugin>-->
 
             <!-- resource复制到lombok包下 -->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven-resources-plugin.version}</version>
@@ -173,7 +173,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
             <!-- 源码打包start -->
             <plugin>
@@ -195,7 +195,7 @@
             </plugin>
 
 
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>${maven-antrun-plugin.version}</version>
@@ -214,7 +214,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <!-- 源码打包end -->
 
             <!-- javadoc -->
